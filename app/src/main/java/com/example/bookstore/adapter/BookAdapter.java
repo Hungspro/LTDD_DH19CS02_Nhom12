@@ -1,5 +1,8 @@
-package com.example.bookstore;
+package com.example.bookstore.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,14 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bookstore.BookDetailsActivity;
+import com.example.bookstore.R;
+import com.example.bookstore.model.Book;
 
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder> {
     List<Book> data;
+    private Context context;
 
-    public BookAdapter(List<Book> data){
+    public BookAdapter(Context context,List<Book> data){
+        this.context = context;
         this.data = data;
     }
 
@@ -27,9 +37,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder
 
     @Override
     public void onBindViewHolder(@NonNull bookviewholder holder, int position) {
+        final Book book = data.get(position);
+        if (book == null){
+            return;
+        }
         holder.name.setText(data.get(position).getName());
         holder.imgBook.setImageResource(data.get(position).getDrawableResources());
-
+        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickGoToDetail(book);
+            }
+        });
+    }
+    private void onClickGoToDetail(Book book){
+        Intent intent = new Intent(context, BookDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_book",book);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     @Override
@@ -39,15 +65,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder
 
     public class bookviewholder extends RecyclerView.ViewHolder{
 
-        ImageView imgBook, imgFav;
+        private ConstraintLayout layoutItem;
+        ImageView imgBook;
         TextView name;
 
         public bookviewholder(@NonNull View itemView) {
             super(itemView);
-
+            layoutItem = itemView.findViewById(R.id.book_layout);
             imgBook = itemView.findViewById(R.id.book_image);
             name = itemView.findViewById(R.id.book_name);
-//            imgFav = itemView.findViewById(R.id.fav_icon);
         }
     }
 

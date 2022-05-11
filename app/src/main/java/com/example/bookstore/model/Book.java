@@ -1,6 +1,8 @@
-package com.example.bookstore;
+package com.example.bookstore.model;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     private String name,author,description,imgUrl;
     private int price;
     private int drawableResources;

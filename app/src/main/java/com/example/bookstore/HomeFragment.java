@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookstore.adapter.BookAdapter;
+import com.example.bookstore.model.Book;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +82,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupBookAdapter() {
-        bookAdapter = new BookAdapter(data);
+        bookAdapter = new BookAdapter(getContext(),data);
         recyclerView.setAdapter(bookAdapter);
     }
 
