@@ -1,14 +1,24 @@
 package com.example.bookstore;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     BookAdapter bookAdapter;
     List<Book> data;
+    private DatabaseReference databaseReference;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,34 +83,43 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.rv_book);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        databaseReference = FirebaseDatabase.getInstance().getReference("Books");
         initViews();
-        initDataBooks();
-        setupBookAdapter();
+
+        LoadData();
+
         return view;
     }
 
-    private void setupBookAdapter() {
-        bookAdapter = new BookAdapter(data);
-        recyclerView.setAdapter(bookAdapter);
+    public void LoadData() {
+        data = new ArrayList<>();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Book book = snapshot1.getValue(Book.class);
+                    Log.d("12345", snapshot1.toString());
+                    Log.d("12345", book.getAuthor());
+                    data.add(book);
+                }
+
+                bookAdapter = new BookAdapter(getContext(), data);
+                recyclerView.setAdapter(bookAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println(error);
+            }
+        });
     }
 
-    private void initViews(){
+    private void initViews() {
         recyclerView = recyclerView.findViewById(R.id.rv_book);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
     }
 
-    private void initDataBooks() {
-        data = new ArrayList<>();
-        data.add(new Book(R.drawable.anh1,"hung"));
-        data.add(new Book(R.drawable.anh1,"hung1"));
-        data.add(new Book(R.drawable.anh1,"hung2"));
-        data.add(new Book(R.drawable.anh1,"hung3"));
-        data.add(new Book(R.drawable.anh1,"hung4"));
-        data.add(new Book(R.drawable.anh1,"hung5"));
-        data.add(new Book(R.drawable.anh1,"hung6"));
-
-    }
 }

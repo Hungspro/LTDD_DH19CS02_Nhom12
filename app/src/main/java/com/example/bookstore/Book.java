@@ -1,73 +1,59 @@
 package com.example.bookstore;
 
 public class Book {
-    private String name,author,description,imgUrl;
-    private int price;
-    private int drawableResources;
 
-    public Book(int drawableResources,String name) {
-        this.drawableResources = drawableResources;
-        this.name = name;
-    }
+    private String Name,Author,Description,Image;
+    private int Price;
 
-    public Book(int drawableResources) {
-        this.drawableResources = drawableResources;
+    public Book(){}
+
+    public Book(String name, String author, String description, String image, int price) {
+        Name = name;
+        Author = author;
+        Description = description;
+        Image = image;
+        Price = price;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public String getAuthor() {
-        return author;
+        return Author;
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        Author = author;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        Description = description;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImage() {
+        return Image;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImage(String image) {
+        Image = image;
     }
 
     public int getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(int price) {
-        this.price = price;
+        Price = price;
     }
 
-    public int getDrawableResources() {
-        return drawableResources;
-    }
 
-    public void setDrawableResources(int drawableResources) {
-        this.drawableResources = drawableResources;
-    }
-
-    public Book(String name, String author, String description, String imgUrl, int price, int drawableResources) {
-        this.name = name;
-        this.author = author;
-        this.description = description;
-        this.imgUrl = imgUrl;
-        this.price = price;
-        this.drawableResources = drawableResources;
-    }
 }

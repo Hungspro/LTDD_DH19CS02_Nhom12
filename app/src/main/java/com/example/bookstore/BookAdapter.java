@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +10,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder> {
+     Context context;
     List<Book> data;
 
-    public BookAdapter(List<Book> data){
+    public BookAdapter(Context context,List<Book> data){
+        this.context = context;
         this.data = data;
     }
 
     @NonNull
     @Override
     public bookviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_grid,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_grid,parent,false);
         return new bookviewholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull bookviewholder holder, int position) {
         holder.name.setText(data.get(position).getName());
-        holder.imgBook.setImageResource(data.get(position).getDrawableResources());
+        Glide.with(context).load(data.get(position).getImage()).into(holder.imgBook);
 
     }
 
