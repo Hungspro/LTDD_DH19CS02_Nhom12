@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     RecyclerView recyclerView;
     BookAdapter bookAdapter;
-    List<Book> data;
+    List<String> listIdBook;
     private DatabaseReference databaseReference;
 
     public HomeFragment() {
@@ -94,18 +94,15 @@ public class HomeFragment extends Fragment {
     }
 
     public void LoadData() {
-        data = new ArrayList<>();
+        listIdBook = new ArrayList<>();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Book book = snapshot1.getValue(Book.class);
-                    Log.d("12345", snapshot1.toString());
-                    Log.d("12345", book.getAuthor());
-                    data.add(book);
+                    listIdBook.add(snapshot1.getKey());
                 }
 
-                bookAdapter = new BookAdapter(getContext(), data);
+                bookAdapter = new BookAdapter(getContext(), listIdBook);
                 recyclerView.setAdapter(bookAdapter);
             }
 
