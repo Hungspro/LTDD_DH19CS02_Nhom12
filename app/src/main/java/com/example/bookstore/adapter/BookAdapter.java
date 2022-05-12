@@ -18,17 +18,21 @@ import com.bumptech.glide.Glide;
 import com.example.bookstore.BookDetailsActivity;
 import com.example.bookstore.R;
 import com.example.bookstore.model.Book;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder> {
      Context context;
-    List<Book> data;
-    private Context context;
+    List<String> listIdBook;
 
-    public BookAdapter(Context context,List<Book> data){
+    public BookAdapter(Context context,List<String> listIdBook){
         this.context = context;
-        this.data = data;
+        this.listIdBook = listIdBook;
     }
 
     @NonNull
@@ -40,31 +44,39 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder
 
     @Override
     public void onBindViewHolder(@NonNull bookviewholder holder, int position) {
-        final Book book = data.get(position);
-        if (book == null){
-            return;
-        }
-        holder.name.setText(data.get(position).getName());
-
-        Glide.with(context).load(data.get(position).getImage()).into(holder.imgBook);
-        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Books").child(listIdBook.get(position));
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                onClickGoToDetail(book);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Book book=snapshot.getValue(Book.class);
+                holder.name.setText(book.getName());
+
+                Glide.with(context).load(book.getImage()).into(holder.imgBook);
+                holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickGoToDetail(snapshot.getKey());
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
     }
-    private void onClickGoToDetail(Book book){
+    private void onClickGoToDetail(String idBook){
         Intent intent = new Intent(context, BookDetailsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("object_book",book);
-        intent.putExtras(bundle);
+
+        intent.putExtra("idBook",idBook);
         context.startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return listIdBook.size();
     }
 
     public class bookviewholder extends RecyclerView.ViewHolder{
