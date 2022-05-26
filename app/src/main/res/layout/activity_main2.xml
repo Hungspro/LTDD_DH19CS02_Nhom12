@@ -8,13 +8,15 @@
     tools:context=".model.Main2Activity"
     android:background="@drawable/bg"
     android:padding="20dp">
-<ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:id="@+id/iconIv"
-    android:src="@drawable/logosach"
-    android:layout_centerVertical="true"
-    android:layout_marginTop="10dp"></ImageView>
+
+    <ImageView
+        android:id="@+id/iconIv"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logosach"
+        android:layout_centerHorizontal="true"></ImageView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,11 +34,12 @@
         android:layout_marginBottom="10dp"
         android:text="Login"
         android:textColor="@color/white"></Button>
+
     <Button
+        android:id="@+id/btskip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/btskip"
         android:text="Continue Without Login"
-        android:textColor="@color/purple_500"></Button>
+        android:textColor="@color/white"></Button>
   </RelativeLayout>

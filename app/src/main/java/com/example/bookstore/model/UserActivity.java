@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.bookstore.MainActivity;
 import com.example.bookstore.R;
 import com.example.bookstore.databinding.ActivityUserBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,7 @@ public class UserActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser==null)
         {
-            startActivity(new Intent(this,Main2Activity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
         else

@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.bookstore.MainActivity;
 import com.example.bookstore.R;
 import com.example.bookstore.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 String userType = ""+ snapshot.child("userType").getValue();
                 if(userType.equals("user")){
-                    startActivity(new Intent(LoginActivity.this,UserActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
                 else if(userType.equals("admin"))

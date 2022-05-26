@@ -1,9 +1,12 @@
 package com.example.bookstore.model;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.bookstore.MainActivity;
 import com.example.bookstore.R;
 import com.example.bookstore.databinding.ActivityMain2Binding;
 
@@ -17,13 +20,15 @@ public class Main2Activity extends AppCompatActivity {
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Main2Activity.this,LoginActivity.class));
+                finish();
             }
         });
         binding.btskip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Main2Activity.this, MainActivity.class));
+                finish();
             }
         });
     }
