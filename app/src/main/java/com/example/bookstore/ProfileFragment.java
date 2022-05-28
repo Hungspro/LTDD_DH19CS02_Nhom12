@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 System.out.println("hi");
                 firebaseAuth.signOut();
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                startActivity(new Intent(getActivity(),Main2Activity.class));
                 getActivity().finish();
             }
         });
