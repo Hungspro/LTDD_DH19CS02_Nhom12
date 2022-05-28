@@ -5,13 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.bookstore.databinding.FragmentProfileBinding;
 import com.example.bookstore.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -32,8 +38,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private FragmentProfileBinding binding;
     private FirebaseAuth firebaseAuth;
     private View view;
-    private User email;
-    private User name;
     private DatabaseReference databaseReference;
 
     public ProfileFragment() {
@@ -66,20 +70,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                User user = snapshot.getValue(User.class);
-//
-//                name = new User(getContext(),name)
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
     }
 
     @Override
@@ -87,6 +78,23 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         firebaseAuth = FirebaseAuth.getInstance();
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        TextView userName = (TextView)view.findViewById(R.id.UserName);
+        TextView userEmail = (TextView)view.findViewById(R.id.UserEmail);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                userName.setText(user.getName());
+                userEmail.setText(user.getEmail());
+                System.out.println(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println(error);
+            }
+        });
 
         configureImageButton();
         return view;
