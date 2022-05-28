@@ -1,11 +1,11 @@
 package com.example.bookstore;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     String userType = ""+ snapshot.child("userType").getValue();
                     if(userType.equals("user")){
-                        startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                        startActivity(new Intent(SplashActivity.this,Main2Activity.class));
                         finish();
                     }
                     else if(userType.equals("admin"))

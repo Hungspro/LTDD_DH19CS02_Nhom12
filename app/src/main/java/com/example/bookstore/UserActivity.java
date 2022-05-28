@@ -19,7 +19,7 @@ public class UserActivity extends AppCompatActivity {
         binding = ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();
-        binding.btlogout.setOnClickListener(new View.OnClickListener() {
+        binding.btlogout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 firebaseAuth.signOut();
@@ -31,7 +31,7 @@ public class UserActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser==null)
         {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
         else
