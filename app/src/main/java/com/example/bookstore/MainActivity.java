@@ -8,8 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bookstore.databinding.ActivityMainBinding;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     replaceFragment(new HomeFragment());
                     break;
-                case R.id.fav:
-                    replaceFragment(new FavouriteFragment());
+                case R.id.cart:
+                    replaceFragment(new CartFragment());
                     break;
                 case R.id.profile:
                     replaceFragment(new ProfileFragment());

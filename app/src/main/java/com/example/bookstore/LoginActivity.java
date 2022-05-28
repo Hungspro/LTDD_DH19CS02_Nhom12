@@ -1,4 +1,4 @@
-package com.example.bookstore.model;
+package com.example.bookstore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +11,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.bookstore.MainActivity;
-import com.example.bookstore.R;
 import com.example.bookstore.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

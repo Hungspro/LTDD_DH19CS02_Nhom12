@@ -1,13 +1,11 @@
-package com.example.bookstore.model;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookstore;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.bookstore.MainActivity;
-import com.example.bookstore.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bookstore.databinding.ActivityUserBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

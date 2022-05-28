@@ -1,4 +1,4 @@
-package com.example.bookstore.model;
+package com.example.bookstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.bookstore.MainActivity;
-import com.example.bookstore.R;
 import com.example.bookstore.databinding.ActivityMain2Binding;
 
 public class Main2Activity extends AppCompatActivity {

@@ -1,7 +1,4 @@
-package com.example.bookstore.model;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookstore;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,7 +8,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.bookstore.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bookstore.databinding.ActivityRegister2Binding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -106,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 progressDialog.dismiss();
                 Toast.makeText(RegisterActivity.this, "Account created...", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegisterActivity.this,UserActivity.class));
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {

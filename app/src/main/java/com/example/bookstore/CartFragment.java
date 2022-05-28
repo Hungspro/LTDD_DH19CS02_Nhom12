@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FavouriteFragment#newInstance} factory method to
+ * Use the {@link CartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavouriteFragment extends Fragment {
+public class CartFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +23,7 @@ public class FavouriteFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FavouriteFragment() {
+    public CartFragment() {
         // Required empty public constructor
     }
 
@@ -36,8 +36,8 @@ public class FavouriteFragment extends Fragment {
      * @return A new instance of fragment FavouriteFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavouriteFragment newInstance(String param1, String param2) {
-        FavouriteFragment fragment = new FavouriteFragment();
+    public static CartFragment newInstance(String param1, String param2) {
+        CartFragment fragment = new CartFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,6 +58,6 @@ public class FavouriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 }
