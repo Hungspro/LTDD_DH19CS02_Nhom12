@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,8 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         TextView userName = (TextView)view.findViewById(R.id.UserName);
         TextView userEmail = (TextView)view.findViewById(R.id.UserEmail);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        ImageButton logoutBt=(ImageButton) view.findViewById(R.id.btlogout);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,27 +96,19 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        configureImageButton();
-        return view;
-    }
-    private void configureImageButton() {
-        // TODO Auto-generated method stub
-        ImageButton logoutBt=(ImageButton) view.findViewById(R.id.btlogout);
-
         logoutBt.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                System.out.println("hi");
                 firebaseAuth.signOut();
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
             }
         });
 
-
+        return view;
     }
 
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }
