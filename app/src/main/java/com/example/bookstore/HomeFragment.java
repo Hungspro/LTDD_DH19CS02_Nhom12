@@ -117,8 +117,6 @@ public class HomeFragment extends Fragment {
         recyclerView = recyclerView.findViewById(R.id.rv_book);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
-
-
     }
 
 }

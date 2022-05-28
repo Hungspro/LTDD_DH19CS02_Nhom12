@@ -48,6 +48,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookviewholder
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 Book book=snapshot.getValue(Book.class);
                 holder.name.setText(book.getName());
 

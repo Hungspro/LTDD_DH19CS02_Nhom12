@@ -5,7 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bookstore.adapter.BookAdapter;
+import com.example.bookstore.adapter.OrderBookAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +38,10 @@ public class CartFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    RecyclerView recyclerView;
+    OrderBookAdapter orderBookAdapter;
+    List<String> listIdBook;
+    private DatabaseReference databaseReference;
 
     public CartFragment() {
         // Required empty public constructor
@@ -58,6 +78,33 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_cart);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("listCart");
+        LoadDataCart();
+        return view;
     }
+
+    public void LoadDataCart() {
+        listIdBook = new ArrayList<>();
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            listIdBook.add(snapshot1.getValue().toString());
+                        }
+
+                        orderBookAdapter = new OrderBookAdapter(getContext(), listIdBook);
+                        recyclerView.setAdapter(orderBookAdapter);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    System.out.println(error);
+                }
+            });
+        }
 }
